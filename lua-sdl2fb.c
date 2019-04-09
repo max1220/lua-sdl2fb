@@ -102,16 +102,57 @@ static int sdl2fb_pool_event(lua_State *L) {
 			break;
 		case SDL_MOUSEBUTTONDOWN:
 			LUA_T_PUSH_S_S("type", "mousebuttondown")
+			LUA_T_PUSH_S_I("timestamp", ev.button.timestamp)
+			LUA_T_PUSH_S_I("clicks", ev.button.clicks)
+			LUA_T_PUSH_S_I("button", ev.button.button)
+			LUA_T_PUSH_S_I("state", ev.button.state)
+			LUA_T_PUSH_S_I("x", ev.button.x)
+			LUA_T_PUSH_S_I("y", ev.button.y)
 			break;
 		case SDL_MOUSEBUTTONUP:
 			LUA_T_PUSH_S_S("type", "mousebuttonup")
+			LUA_T_PUSH_S_I("timestamp", ev.button.timestamp)
+			LUA_T_PUSH_S_I("clicks", ev.button.clicks)
+			LUA_T_PUSH_S_I("button", ev.button.button)
+			LUA_T_PUSH_S_I("state", ev.button.state)
+			LUA_T_PUSH_S_I("x", ev.button.x)
+			LUA_T_PUSH_S_I("y", ev.button.y)
+			break;
+		case SDL_MOUSEWHEEL:
+			LUA_T_PUSH_S_S("type", "mousesheel")
+			LUA_T_PUSH_S_I("timestamp", ev.wheel.timestamp)
+			LUA_T_PUSH_S_I("direction", ev.wheel.direction)
+			LUA_T_PUSH_S_I("x", ev.wheel.x)
+			LUA_T_PUSH_S_I("y", ev.wheel.y)
+			break;
+		case SDL_WINDOWEVENT:
+			LUA_T_PUSH_S_S("type", "windowevent")
+			LUA_T_PUSH_S_I("window_event", ev.window.event)
+			LUA_T_PUSH_S_I("data1", ev.window.data1)
+			LUA_T_PUSH_S_I("data2", ev.window.data2)
+			break;
+		case SDL_JOYAXISMOTION:
+			LUA_T_PUSH_S_S("type", "joyaxismotion")
+			break;
+		case SDL_JOYBUTTONDOWN:
+			LUA_T_PUSH_S_S("type", "joybuttondown")
+			LUA_T_PUSH_S_I("timestamp", ev.jbutton.timestamp)
+			LUA_T_PUSH_S_I("joystick", ev.jbutton.which)
+			LUA_T_PUSH_S_I("button", ev.jbutton.button)
+			LUA_T_PUSH_S_I("state", ev.jbutton.state)
+			break;
+		case SDL_JOYBUTTONUP:
+			LUA_T_PUSH_S_S("type", "joybuttonup")
+			LUA_T_PUSH_S_I("timestamp", ev.jbutton.timestamp)
+			LUA_T_PUSH_S_I("joystick", ev.jbutton.which)
+			LUA_T_PUSH_S_I("button", ev.jbutton.button)
+			LUA_T_PUSH_S_I("state", ev.jbutton.state)
 			break;
 		case SDL_QUIT:
 			LUA_T_PUSH_S_S("type", "quit")
 			break;
 		default:
 			LUA_T_PUSH_S_I("type", ev.type)
-			
 			break;
 	}
 	
@@ -177,7 +218,7 @@ static int sdl2fb_draw_from_drawbuffer(lua_State *L) {
 static int sdl2fb_new(lua_State *L) {
     int w = lua_tointeger(L, 1);
 	int h = lua_tointeger(L, 2);
-	const char *title = lua_tostring(L, 3);
+	const char *title = luaL_checkstring(L, 3);
 
 	sdl_framebuffer_t *sdl2fb = (sdl_framebuffer_t *)lua_newuserdata(L, sizeof(sdl_framebuffer_t));
 
