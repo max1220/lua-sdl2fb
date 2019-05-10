@@ -197,7 +197,7 @@ static int sdl2fb_draw_from_drawbuffer(lua_State *L) {
             p = db->data[cy*db->w+cx];
 			pixel = SDL_MapRGBA(screen->format, p.r, p.g, p.b, p.a);
             
-            if (x+cx < 0 || y+cy < 0 || x+cx > sdl2fb->w || y+cy > sdl2fb->h || p.a < 1) {
+            if (x+cx < 0 || y+cy < 0 || x+cx > sdl2fb->w || y+cy > sdl2fb->h) {
                 continue;
             } else {
                 // set pixel
