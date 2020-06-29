@@ -1,6 +1,8 @@
 lua-sdl2fb
 -----------
 
+Now deprecated. v3 of lua-db has this integrated as an optional module, since this is only usefull in combination with lua-db.
+
 Use a SDL2 windows to draw on it's framebuffer using drawbuffers!
 This library exports functions for interfacing with SDL2. That includes
 the basic eventloop setup.
